@@ -31,5 +31,5 @@ Log SDK version to console:
 ```js
 import * from MoroboxAIGameSDK from 'moroboxai-game-sdk';
 
-console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`;
+console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 ```
