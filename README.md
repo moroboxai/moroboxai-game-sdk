@@ -18,8 +18,18 @@ This package is meant to provide a common interface for all MoroboxAI games so t
 
 This ensure that your game will run correctly on MoroboxAI and that the community will be able to code new AIs for it.
 
-## Installation
+## Install
+
+Using npm:
 
 ```bash
 npm install moroboxai-game-sdk
+```
+
+Log SDK version to console:
+
+```js
+import * from MoroboxAIGameSDK from 'moroboxai-game-sdk';
+
+console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`;
 ```
