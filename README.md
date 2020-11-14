@@ -12,6 +12,7 @@ This package is meant to provide a common interface for all MoroboxAI games so t
 
   * Showing instructions on how to code an AI for the game.
   * Playing, pausing, and stopping the game.
+  * Displaying runtime informations to help coding an AI.
   * Read output data from the current frame.
   * Write input data for the next frame.
 
