@@ -17,3 +17,9 @@ This package is meant to provide a common interface for all MoroboxAI games so t
   * Write input data for the next frame.
 
 This ensure that your game will run correctly on MoroboxAI and that the community will be able to code new AIs for it.
+
+## Installation
+
+```bash
+npm install moroboxai-game-sdk
+```
