@@ -26,7 +26,7 @@ Using npm:
 npm install moroboxai-game-sdk
 ```
 
-Log SDK version to console:
+Log installed SDK version to console:
 
 ```js
 import * from MoroboxAIGameSDK from 'moroboxai-game-sdk';
