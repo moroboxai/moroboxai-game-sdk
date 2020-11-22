@@ -1,7 +1,12 @@
 {
     "compilerOptions": {
-        "target": "es5",
-        "module": "commonjs",
+		"module": "commonjs",
+		"target": "es2019",
+		"lib": [
+			"es2019",
+			"es2019.object",
+			"dom"
+		],
         "declaration": true,
         "outDir": "./lib",
         "strict": true

@@ -21,5 +21,9 @@
   "homepage": "https://github.com/moroboxai/moroboxai-game-sdk#readme",
   "devDependencies": {
     "typescript": "^4.0.5"
+  },
+  "dependencies": {
+    "@types/node": "^14.14.9",
+    "net": "^1.0.2"
   }
 }
