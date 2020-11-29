@@ -26,7 +26,7 @@ This ensure that your game will run correctly on MoroboxAI and that the communit
 Using npm:
 
 ```bash
-npm install moroboxai-game-sdk
+npm install moroboxai-game-sdk --save-dev
 ```
 
 Log installed SDK version to console:
