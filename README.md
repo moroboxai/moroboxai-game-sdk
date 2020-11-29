@@ -1,5 +1,6 @@
 # moroboxai-game-sdk
 
+[![NPM version](https://img.shields.io/npm/v/moroboxai-game-sdk.svg)](https://www.npmjs.com/package/moroboxai-game-sdk)
 ![Node.js CI](https://github.com/moroboxai/moroboxai-game-sdk/workflows/Node.js%20CI/badge.svg)
 [![codecov](https://codecov.io/gh/moroboxai/moroboxai-game-sdk/branch/master/graph/badge.svg?token=stc3zjWmdS)](https://codecov.io/gh/moroboxai/moroboxai-game-sdk)
 
