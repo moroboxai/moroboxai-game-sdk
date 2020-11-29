@@ -40,6 +40,7 @@ console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 ## Skeleton Game
 
 Here is an example of the bare minimum required to write a game for MoroboxAI.
+
 You have to create a new **Game** class derived from **MoroboxAIGameSDK.AbstractGame** and
 export a **boot** function at the end of your script. This **boot** function is the **entrypoint**
 used by MoroboxAI to boot your game:
