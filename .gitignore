@@ -1,6 +1,7 @@
 # Morobox
 build/
 unpack/
+lib/
 *.bat
 
 # Logs

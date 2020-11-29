@@ -13,6 +13,11 @@ export const VERSION: string = '0.1.0-alpha.1';
 export abstract class AbstractGame
 {
     /**
+     * Root HTMLElement containing the game.
+     */
+    abstract readonly root: HTMLElement;
+
+    /**
      * Get a short help message describing the game, how it works, and
      * what inputs/outputs are expected.
      */
@@ -144,8 +149,6 @@ export function createStandalone(): IMoroboxAIGameSDK {
  * Options passed to the game boot function.
  */
 export interface BootOptions {
-    // root HTML element attributed to game
-    root: HTMLElement,
     // SDK instance
     sdk: IMoroboxAIGameSDK
 }
