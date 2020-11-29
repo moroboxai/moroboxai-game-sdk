@@ -39,7 +39,7 @@ console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 
 ## Minimal Node.js project
 
-We will setup a simple Node.js project for writing a game that works in MoroboxAI.
+We will setup a simple Node.js project for writing a game that can be run in MoroboxAI.
 As **moroboxai-game-sdk** is written using TypeScript, we will also configure the project
 to be compiled with TypeScript.
 
