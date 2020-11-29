@@ -37,7 +37,7 @@ import * from MoroboxAIGameSDK from 'moroboxai-game-sdk';
 console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 ```
 
-## Skeleton Game
+## SkeletonGame
 
 Here is an example of the bare minimum required to write a game for MoroboxAI.
 
@@ -71,4 +71,10 @@ export class SkeletonGame extends MoroboxAIGameSDK.AbstractGame
 export function boot(options: MoroboxAIGameSDK.BootOptions) {
     const game = new Game(options);
 }
+```
+
+## Example with PixiJS
+
+```js
+
 ```
