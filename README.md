@@ -85,7 +85,7 @@ Create a **tsconfig.json** file containing:
 ```
 
 This will tell TypeScript to compile only **src/game.ts** without unnecessary files from **node_modules**.
-Also, your game will be compiled as a **CommonJS** module, this is the format expected by MoroboxAI.
+Also, your game will be compiled as a **CommonJS** module.
 
 Now, create a new **src/game.ts** file with the following code:
 
