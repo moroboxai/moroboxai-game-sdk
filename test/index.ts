@@ -44,7 +44,7 @@ describe('MoroboxAIGameSDK', function ()
 {
     it('should have VERSION', function ()
     {
-        expect(MoroboxAIGameSDK.VERSION).to.be.equal('0.1.0-alpha.1');
+        expect(MoroboxAIGameSDK.VERSION).to.be.equal('0.1.0-alpha.4');
     });
 
     describe('StandaloneGameSDK', function()
