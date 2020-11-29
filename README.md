@@ -41,25 +41,26 @@ console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 
 Here is an example of the bare minimum required to write a game for MoroboxAI.
 
-First, you have to create a new NodeJS project with **npm init**.
-Answer all the questions, and you will now have a **package.json** file in **my/game** directory:
+First, you have to create a new NodeJS project with **npm init**:
 
 ```bash
 cd my/game
 npm init
 ```
 
-The next step is to install **typescript** and **moroboxai-game-sdk** using the following command.
-Please not that moroboxai-game-sdk is only required in **development** so that typescript knows about
-the types. At **runtime**, the SDK will be initialized and provided directly by MoroboxAI, so there
-is no need to include it in our game:
+Answer all the questions, and you will now have a **package.json** file in **my/game** directory.
+
+The next step is to install **typescript** and **moroboxai-game-sdk** using:
 
 ```bash
 npm install typescript moroboxai-game-sdk --save-dev
 ```
 
-Open **package.json** and add the following configuration. Now, running **npm run build** will compile
-your game to **lib/game.js**:
+Please note that moroboxai-game-sdk is only required in **development** so that typescript knows about
+the types. At **runtime**, the SDK will be initialized and provided directly by MoroboxAI, so there
+is no need to include it in our game.
+
+Now, add the following configuration to **package.json**:
 
 ```json
 "scripts": {
@@ -67,19 +68,18 @@ your game to **lib/game.js**:
 }
 ```
 
-Add the following **tsconfig.json** file to your project. This will tell TypeScript to compile only **src/game.ts**
-without unnecessary files from **node_modules**. Also, your game will be compiled as a **CommonJS** module:
+Add create a **tsconfig.json** file containing:
 
 ```json
 {
     "compilerOptions": {
-		"module": "commonjs",
-		"target": "es2019",
-		"lib": [
-			"es2019",
-			"es2019.object",
-			"dom"
-		],
+        "module": "commonjs",
+        "target": "es2019",
+        "lib": [
+            "es2019",
+            "es2019.object",
+            "dom"
+        ],
         "outDir": "./lib",
         "strict": true
     },
@@ -88,11 +88,10 @@ without unnecessary files from **node_modules**. Also, your game will be compile
 }
 ```
 
-Now, create a new **src/game.ts** file containing the following code.
-**MoroboxAIGameSDK.AbstractGame** is a abstract class from the SDK providing multiple
-functions required by MoroboxAI to run and manage the lifecycle or our game. The **boot**
-function is required and must be exported at the **end of the script**. This will
-be the entrypoint used by MoroboxAI to boot our game:
+This will tell TypeScript to compile only **src/game.ts** without unnecessary files from **node_modules**.
+Also, your game will be compiled as a **CommonJS** module, this is the format expected by MoroboxAI.
+
+Now, create a new **src/game.ts** file with the following code:
 
 ```js
 import * as MoroboxAIGameSDK from 'moroboxai-game-sdk';
@@ -121,3 +120,8 @@ export function boot(options: MoroboxAIGameSDK.BootOptions) {
     const game = new Game(options);
 }
 ```
+
+**MoroboxAIGameSDK.AbstractGame** is a abstract class from the SDK providing multiple
+functions required by MoroboxAI to run and manage the lifecycle or our game. The **boot**
+function is required and must be exported at the **end of the script**. This will
+be the entrypoint used by MoroboxAI to boot our game.
