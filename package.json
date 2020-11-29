@@ -16,8 +16,8 @@
     "url": "git+https://github.com/moroboxai/moroboxai-game-sdk.git"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "moroboxai",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/moroboxai/moroboxai-game-sdk/issues"
   },
