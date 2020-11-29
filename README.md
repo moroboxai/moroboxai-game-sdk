@@ -62,14 +62,8 @@ Open **package.json** and add the following configuration. Now, running **npm ru
 your game to **lib/game.js**:
 
 ```json
-{
-    ...
-    "main": "lib/game.js",
-    ...
-    "scripts": {
-        "build": "tsc"
-    },
-    ...
+"scripts": {
+    "build": "tsc"
 }
 ```
 
