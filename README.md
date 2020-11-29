@@ -37,30 +37,26 @@ import * from MoroboxAIGameSDK from 'moroboxai-game-sdk';
 console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 ```
 
-## Boilerplate
+## Write a game for MoroboxAI
 
-Here is an example of the bare minimum required to write a game for MoroboxAI.
-
-First, you have to create a new NodeJS project with **npm init**:
+First, create a new NodeJS project:
 
 ```bash
 cd my/game
 npm init
 ```
 
-Answer all the questions, and you will now have a **package.json** file in **my/game** directory.
-
-The next step is to install **typescript** and **moroboxai-game-sdk** using:
+Install **typescript** and **moroboxai-game-sdk**:
 
 ```bash
 npm install typescript moroboxai-game-sdk --save-dev
 ```
 
-Please note that moroboxai-game-sdk is only required in **development** so that typescript knows about
+_Note: moroboxai-game-sdk is only required in **development** so that typescript knows about
 the types. At **runtime**, the SDK will be initialized and provided directly by MoroboxAI, so there
-is no need to include it in our game.
+is no need to include it in our game._
 
-Now, add the following configuration to **package.json**:
+Add the following configuration to **package.json**:
 
 ```json
 "scripts": {
@@ -68,7 +64,7 @@ Now, add the following configuration to **package.json**:
 }
 ```
 
-Add create a **tsconfig.json** file containing:
+Create a **tsconfig.json** file containing:
 
 ```json
 {
@@ -125,3 +121,11 @@ export function boot(options: MoroboxAIGameSDK.BootOptions) {
 functions required by MoroboxAI to run and manage the lifecycle or our game. The **boot**
 function is required and must be exported at the **end of the script**. This will
 be the entrypoint used by MoroboxAI to boot our game.
+
+You can now build your game with:
+
+```bash
+npm run build
+```
+
+This will produce a **lib/game.js** file ready for MoroboxAI.
