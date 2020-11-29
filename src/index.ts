@@ -13,15 +13,13 @@ export const VERSION: string = '0.1.0-alpha.1';
 export abstract class AbstractGame
 {
     /**
-     * Root HTMLElement containing the game.
-     */
-    abstract readonly root: HTMLElement;
-
-    /**
      * Get a short help message describing the game, how it works, and
      * what inputs/outputs are expected.
      */
-    abstract help(): string;
+    public help(): string
+    {
+        return '';
+    }
 
     /**
      * Start execution of the game.
@@ -55,7 +53,10 @@ export abstract class AbstractGame
      * @param {any} [val=undefined] - Default returned value if output is undefined.
      * @return {any} Output value for the current frame.
      */
-    abstract output(key: string, val?: any): any;
+    public output(key: string, val?: any): any
+    {
+        return undefined;
+    }
 
     /**
      * Write input data to current frame of the game.
@@ -64,7 +65,8 @@ export abstract class AbstractGame
      * @param {string} [key] - Name of input to write.
      * @param {any} [val] - New value for this input.
      */
-    abstract input(key: string, val: any): void;
+    public input(key: string, val: any): void
+    {}
 }
 
 export interface IMoroboxAIGameSDK {
@@ -149,6 +151,8 @@ export function createStandalone(): IMoroboxAIGameSDK {
  * Options passed to the game boot function.
  */
 export interface BootOptions {
+    // root HTML element attributed to game
+    root: HTMLElement,
     // SDK instance
     sdk: IMoroboxAIGameSDK
 }

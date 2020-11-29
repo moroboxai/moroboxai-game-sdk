@@ -15,10 +15,6 @@ class MockGame extends MoroboxAIGameSDK.AbstractGame
         super();
     }
 
-    public get root(): HTMLElement {
-        return document.body;
-    }
-
     public help(): string {
         return 'MockGame';
     }
@@ -84,6 +80,7 @@ describe('MoroboxAIGameSDK', function ()
         {
             const sdk = MoroboxAIGameSDK.createStandalone();
             const game = new MockGame({
+                root: document.body,
                 sdk
             });
         });
