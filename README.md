@@ -39,7 +39,7 @@ console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 
 ## Minimal Node.js project
 
-We will setup a simple Node.js project for writing a game that works in MoroboxAI.
+We will setup a simple Node.js project for writing a game that can be run in MoroboxAI.
 As **moroboxai-game-sdk** is written using TypeScript, we will also configure the project
 to be compiled with TypeScript.
 
@@ -121,7 +121,7 @@ export function boot(options: MoroboxAIGameSDK.BootOptions) {
 }
 ```
 
-**MoroboxAIGameSDK.AbstractGame** is a abstract class from the SDK providing multiple
+**MoroboxAIGameSDK.AbstractGame** is an abstract class from the SDK providing multiple
 functions required by MoroboxAI to run and manage the game lifecycle. The **boot**
 function is required and must be exported at the **end of the script**. This will
 be the entrypoint used by MoroboxAI to boot our game.
