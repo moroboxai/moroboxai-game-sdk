@@ -121,7 +121,7 @@ export function boot(options: MoroboxAIGameSDK.BootOptions) {
 }
 ```
 
-**MoroboxAIGameSDK.AbstractGame** is a abstract class from the SDK providing multiple
+**MoroboxAIGameSDK.AbstractGame** is an abstract class from the SDK providing multiple
 functions required by MoroboxAI to run and manage the game lifecycle. The **boot**
 function is required and must be exported at the **end of the script**. This will
 be the entrypoint used by MoroboxAI to boot our game.
