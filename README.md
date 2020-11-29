@@ -37,18 +37,73 @@ import * from MoroboxAIGameSDK from 'moroboxai-game-sdk';
 console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 ```
 
-## SkeletonGame
+## Boilerplate
 
 Here is an example of the bare minimum required to write a game for MoroboxAI.
 
-You have to create a new **Game** class derived from **MoroboxAIGameSDK.AbstractGame** and
-export a **boot** function at the end of your script. This **boot** function is the **entrypoint**
-used by MoroboxAI to boot your game:
+First, you have to create a new NodeJS project with **npm init**.
+Answer all the questions, and you will now have a **package.json** file in **my/game** directory:
+
+```bash
+cd my/game
+npm init
+```
+
+The next step is to install **typescript** and **moroboxai-game-sdk** using the following command.
+Please not that moroboxai-game-sdk is only required in **development** so that typescript knows about
+the types. At **runtime**, the SDK will be initialized and provided directly by MoroboxAI, so there
+is no need to include it in our game:
+
+```bash
+npm install typescript moroboxai-game-sdk --save-dev
+```
+
+Open **package.json** and add the following configuration. Now, running **npm run build** will compile
+your game to **lib/game.js**:
+
+```json
+{
+    ...
+    "main": "lib/game.js",
+    ...
+    "scripts": {
+        "build": "tsc"
+    },
+    ...
+}
+```
+
+Add the following **tsconfig.json** file to your project. This will tell TypeScript to compile only **src/game.ts**
+without unnecessary files from **node_modules**. Also, your game will be compiled as a **CommonJS** module:
+
+```json
+{
+    "compilerOptions": {
+		"module": "commonjs",
+		"target": "es2019",
+		"lib": [
+			"es2019",
+			"es2019.object",
+			"dom"
+		],
+        "outDir": "./lib",
+        "strict": true
+    },
+    "files": ["src/game.ts"],
+    "exclude": ["node_modules"]
+}
+```
+
+Now, create a new **src/game.ts** file containing the following code.
+**MoroboxAIGameSDK.AbstractGame** is a abstract class from the SDK providing multiple
+functions required by MoroboxAI to run and manage the lifecycle or our game. The **boot**
+function is required and must be exported at the **end of the script**. This will
+be the entrypoint used by MoroboxAI to boot our game:
 
 ```js
 import * as MoroboxAIGameSDK from 'moroboxai-game-sdk';
 
-export class SkeletonGame extends MoroboxAIGameSDK.AbstractGame
+export class Game extends MoroboxAIGameSDK.AbstractGame
 {
     constructor(options: MoroboxAIGameSDK.BootOptions) {
         super();
@@ -71,10 +126,4 @@ export class SkeletonGame extends MoroboxAIGameSDK.AbstractGame
 export function boot(options: MoroboxAIGameSDK.BootOptions) {
     const game = new Game(options);
 }
-```
-
-## Example with PixiJS
-
-```js
-
 ```
