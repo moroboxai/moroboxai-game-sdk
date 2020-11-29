@@ -22,17 +22,25 @@ describe('MoroboxAIGameSDK', function ()
     {
         describe('constructor', function()
         {
-            const sdk = MoroboxAIGameSDK.createStandalone();
-
-            it('should have version matching VERSION', function ()
+            it('should have version matching MoroboxAIGameSDK.VERSION', function ()
             {
+                const sdk = MoroboxAIGameSDK.createStandalone();
                 expect(sdk.version).to.be.equal(MoroboxAIGameSDK.VERSION);
             });
 
-            it('should be bound to a local port', function ()
+            it('should notify when ready', function(done)
             {
-                expect(sdk.address.address).to.be.equal(LOCALHOST);
-                expect(sdk.address.port).to.not.be.equal(0);
+                const sdk = MoroboxAIGameSDK.createStandalone();
+                sdk.ready(() =>
+                {
+                    const host = sdk.address.address;
+                    const port = sdk.address.port;
+                    expect(host).to.be.equal(LOCALHOST);
+                    expect(port).to.not.be.equal(0);
+                    expect(sdk.href('index')).to.be.equal(`http://${host}:${port}/index`);
+
+                    done();
+                });
             });
         });
     });
