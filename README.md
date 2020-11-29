@@ -37,9 +37,11 @@ import * from MoroboxAIGameSDK from 'moroboxai-game-sdk';
 console.log(`MoroboxAIGameSDK v${MoroboxAIGameSDK.VERSION}`);
 ```
 
-## Write a game for MoroboxAI
+## Minimal Node.js project
 
-First, create a new NodeJS project:
+We will setup a simple Node.js project for writing a game that works in MoroboxAI.
+As **moroboxai-game-sdk** is written using TypeScript, we will also configure the project
+to be compiled with TypeScript.
 
 ```bash
 cd my/game
@@ -87,7 +89,9 @@ Create a **tsconfig.json** file containing:
 This will tell TypeScript to compile only **src/game.ts** without unnecessary files from **node_modules**.
 Also, your game will be compiled as a **CommonJS** module.
 
-Now, create a new **src/game.ts** file with the following code:
+## Write your game
+
+Add a new **src/game.ts** file to the project:
 
 ```js
 import * as MoroboxAIGameSDK from 'moroboxai-game-sdk';
@@ -118,14 +122,44 @@ export function boot(options: MoroboxAIGameSDK.BootOptions) {
 ```
 
 **MoroboxAIGameSDK.AbstractGame** is a abstract class from the SDK providing multiple
-functions required by MoroboxAI to run and manage the lifecycle or our game. The **boot**
+functions required by MoroboxAI to run and manage the game lifecycle. The **boot**
 function is required and must be exported at the **end of the script**. This will
 be the entrypoint used by MoroboxAI to boot our game.
 
-You can now build your game with:
+## Build
+
+Using:
 
 ```bash
 npm run build
 ```
 
-This will produce a **lib/game.js** file ready for MoroboxAI.
+This will generate a **lib/game.js** file containing your game exported as a **CommonJS** module.
+
+## Package & distribute
+
+MoroboxAI require your game to be packaged in a **.zip** file along with an **header.json** file containing
+some metadata about your game.
+
+Create a **header.json** file next to **game.js**:
+
+```js
+{
+    "id": "00000000-0000-0000-0000-000000000000",
+    "version": "1.0.0",
+    "title": "Game",
+    "author": "yourname",
+    "description": "Some description.",
+    "boot": "game.js"
+}
+```
+
+Create a **.zip** file with both **header.json** and **game.js** files.
+You can now copy this **.zip** to MoroboxAI **games** directory.
+When launching MoroboxAI, you should now see your game in the main menu:
+
+![alt text](../media/readme_package_moroboxai.png?raw=true)
+
+## License
+
+This content is released under the (http://opensource.org/licenses/MIT) MIT License.
