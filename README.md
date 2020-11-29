@@ -128,8 +128,6 @@ be the entrypoint used by MoroboxAI to boot our game.
 
 ## Build
 
-Using:
-
 ```bash
 npm run build
 ```
