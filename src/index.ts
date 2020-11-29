@@ -5,7 +5,7 @@ import * as net from 'net';
 /**
  * Version of the SDK.
  */
-export const VERSION: string = '0.1.0-alpha.1';
+export const VERSION: string = '0.1.0-alpha.4';
 
 /**
  * 
