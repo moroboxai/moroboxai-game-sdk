@@ -5,54 +5,60 @@ import * as net from 'net';
 /**
  * Version of the SDK.
  */
-export const VERSION: string = '0.1.0-alpha.5';
+export const VERSION: string = '0.1.0-alpha.6';
 
 /**
- * Interface for a local file server.
+ * Simply a wrapper over net.Server for controlling the server.
+ *
+ * Because there are common tasks such as listening to a port,
+ * being notified when ready, closing the server...
  */
-export interface IFileServer
+export interface IServerWrapper
 {
-    /**
-     * Address this file server is listening to.
-     * @returns {net.AddressInfo} Address
-     */
+    // public address of the server
     readonly address: net.AddressInfo;
 
     /**
-     * Get an URL pointing to a resource of this file server.
-     * @param {string} path - Path to the resource
-     * @returns {string} http://host:port/path URL
-     */
-    href(path: string): string;
-
-    /**
-     * Register a callback to be notified when the file
+     * Register a callback to be notified when the AI
      * server is ready.
-     * @param {Function} callback - Callback
+     * @param {Function} callback - Called when ready
      */
     ready(callback: () => void): void;
 
     /**
      * Stop the server.
+     * @param {Function} callback - Called when closed
      */
     close(callback?: (err: any) => void): void;
 }
 
-/**
- * Implementation of the local file server.
- */
-export class FileServer implements IFileServer
+class ServerWrapper implements IServerWrapper
 {
-    private _server: http.Server;
+    // server instance
+    private _server: net.Server;
+    // callback called when server is ready
     private _readyCallback?: () => void;
+    // if the server is ready
     private _isReady: boolean = false;
 
+    /**
+     * Get the server instance.
+     * @returns {net.Server} Server
+     */
+    protected get server(): net.Server {
+        return this._server;
+    }
+
+    /**
+     * Get the public address of the server.
+     * @returns {net.AddressInfo} Address
+     */
     public get address(): net.AddressInfo {
         return this._server.address() as net.AddressInfo;
     }
 
-    constructor() {
-        this._server = http.createServer((req, res) => this._route(req, res));
+    constructor(server: net.Server) {
+        this._server = server;
     }
 
     /**
@@ -63,20 +69,6 @@ export class FileServer implements IFileServer
         this._server.listen(port, '127.0.0.1', () => {
             this._notifyReady();
         });
-    }
-
-    public href(path: string): string {
-        return `http://${this.address.address}:${this.address.port}/${path}`;
-    }
-
-    private _route(req: http.IncomingMessage, res: http.ServerResponse): void {
-        if (req.url === undefined) {
-            res.writeHead(404);
-            res.end();
-            return;
-        }
-
-        res.end(fs.readFileSync(`./${req.url}`));
     }
 
     public ready(callback: () => void): void {
@@ -101,6 +93,87 @@ export class FileServer implements IFileServer
                 callback(e);
             }
         });
+    }
+}
+
+/**
+ * Interface for a local file server.
+ */
+export interface IFileServer extends IServerWrapper
+{
+    /**
+     * Get an URL pointing to a resource of this file server.
+     * @param {string} path - Path to the resource
+     * @returns {string} http://host:port/path URL
+     */
+    href(path: string): string;
+}
+
+/**
+ * Implementation of the local file server.
+ */
+export class FileServer extends ServerWrapper implements IFileServer
+{
+    /**
+     * Default route for serving local files.
+     * @param {http.IncomingMessage} req - Request 
+     * @param {http.ServerResponse} res - Response
+     */
+    public static serveLocalFiles(req: http.IncomingMessage, res: http.ServerResponse): void {
+        // invalid URL
+        if (req.url === undefined) {
+            res.writeHead(404);
+            res.end();
+            return;
+        }
+
+        // check if requested path is a file
+        const path = `./${req.url}`;
+        fs.stat(path, (e, stats) => {
+            if (e || !stats.isFile()) {
+                console.error(e);
+                res.writeHead(404);
+                res.end();
+                return;
+            }
+
+            // read and return file content
+            res.end(fs.readFileSync(path));
+        });
+    }
+
+    /**
+     * Create a local file server.
+     * @param {Function} requestListener - Custom route for serving files
+     */
+    constructor(requestListener?: http.RequestListener | undefined) {
+        super(http.createServer(
+            requestListener !== undefined ? requestListener : FileServer.serveLocalFiles
+        ));
+    }
+
+    public href(path: string): string {
+        return `http://${this.address.address}:${this.address.port}/${path}`;
+    }
+}
+
+/**
+ * Interface for the local AI server.
+ */
+export interface IAIServer extends IServerWrapper
+{}
+
+/**
+ * Implementation of the local AI server.
+ */
+export class AIServer extends ServerWrapper implements IAIServer
+{
+    constructor() {
+        super(net.createServer(socket => this._handleConnection(socket)));
+    }
+
+    private _handleConnection(socket: net.Socket): void {
+        console.log('connection');
     }
 }
 
@@ -173,6 +246,9 @@ export interface IMoroboxAIGameSDK {
     // Local file server
     readonly fileServer: IFileServer;
 
+    // Local AI server
+    readonly aiServer: IAIServer;
+
     /**
      * Register a callback to be notified when the SDK is ready.
      * @param {Function} callback Callback
@@ -184,6 +260,7 @@ export abstract class GameSDKBase implements IMoroboxAIGameSDK {
     private _readyCallback?: () => void;
     private _isReady: boolean = false;
     private _fileServer: IFileServer;
+    private _aiServer: IAIServer;
 
     public get version(): string {
         return VERSION;
@@ -193,9 +270,22 @@ export abstract class GameSDKBase implements IMoroboxAIGameSDK {
         return this._fileServer;
     }
 
-    constructor(fileServer: IFileServer) {
-        this._fileServer = fileServer;
-        this._fileServer.ready(() => this._notifyReady());
+    public get aiServer(): IAIServer {
+        return this._aiServer;
+    }
+
+    constructor(options: GameSDKOptions) {
+        this._fileServer = options.fileServer;
+        this._aiServer = options.aiServer;
+        // be ready when both servers are ready
+        Promise.all([
+            new Promise((resolve, _) => {
+                this._fileServer.ready(resolve);
+            }),
+            new Promise((resolve, _) => {
+                this._aiServer.ready(resolve);
+            })
+        ]).then(() => this._notifyReady());
     }
 
     public ready(callback: () => void): void {
@@ -224,7 +314,7 @@ export abstract class GameSDKBase implements IMoroboxAIGameSDK {
  */
 class StandaloneGameSDK extends GameSDKBase {
     constructor(options: GameSDKOptions) {
-        super(options.fileServer);
+        super(options);
     }
 }
 
@@ -242,7 +332,9 @@ export function createStandalone(options: GameSDKOptions): IMoroboxAIGameSDK {
 
 export interface GameSDKOptions {
     // Local file server
-    fileServer: IFileServer
+    fileServer: IFileServer,
+    // Local AI server
+    aiServer: IAIServer
 }
 
 /**
