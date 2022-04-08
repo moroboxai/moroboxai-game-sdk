@@ -3,6 +3,7 @@ build/
 unpack/
 lib/
 *.bat
+package-lock.json
 
 # Logs
 logs

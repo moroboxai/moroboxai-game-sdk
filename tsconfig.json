@@ -1,16 +1,25 @@
 {
     "compilerOptions": {
-		"module": "commonjs",
-		"target": "es2019",
-		"lib": [
-			"es2019",
-			"es2019.object",
-			"dom"
-		],
+        "module": "commonjs",
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "target": "es6",
+        "noImplicitAny": true,
+        "moduleResolution": "node",
+        "sourceMap": true,
+        "outDir": "lib",
+        "baseUrl": ".",
         "declaration": true,
-        "outDir": "./lib",
-        "strict": true
+        "strict": true,
+        "stripInternal": true,
+        "lib": ["es5", "es6", "dom"],
+        "paths": {
+            "*": [
+                "node_modules/*"
+            ]
+        }
     },
-    "include": ["src"],
-    "exclude": ["node_modules", "**/__tests__/*"]
+    "include": [
+        "src/**/*"
+    ]
 }
