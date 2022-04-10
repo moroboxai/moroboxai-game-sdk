@@ -1,7 +1,19 @@
-/**
- * Version of the SDK.
- */
-export const VERSION: string = '0.1.0-alpha.6';
+// Data in game header
+export interface GameHeader {
+    // Unique id for the game
+    id: string;
+    // Version of the game
+    version: string;
+    // Displayed title
+    title: string;
+    // Displayed description
+    description: string;
+    // Small icon
+    icon: string;
+    preview: string;
+    splashart: string;
+    boot: string;
+}
 
 /**
  * Interface for a local server.
@@ -32,45 +44,60 @@ export interface IFileServer extends IServer
      * @returns {string} http://host:port/path URL
      */
     href(path: string): string;
+
+    /**
+     * Fetch data at a given path.
+     * @param {string} path - Path to get
+     * @returns {Promise} Result
+     */
+    get(path: string): Promise<string>;
+}
+
+/**
+ * Interface for the game server.
+ */
+export interface IGameServer extends IFileServer
+{
+    /**
+     * Fetch and load the game header.
+     * @returns Result
+     */
+    gameHeader(): Promise<GameHeader>;
 }
 
 /**
  * Interface for your game.
  */
-export abstract class AbstractGame
+export interface IGame
 {
     /**
      * Get a short help message describing the game, how it works, and
      * what inputs/outputs are expected.
      */
-    public help(): string
-    {
-        return '';
-    }
+    help(): string;
 
     /**
      * Start execution of the game.
      */
-    abstract play(): void;
+    play(): void;
 
     /**
      * Pause execution of the game.
      */
-    abstract pause(): void;
+    pause(): void;
 
     /**
      * Stop execution of the game.
      */
-    abstract stop(): void;
+    stop(): void;
 
     /**
      * This function is called on each frame.
      * 
      * This is the function you must bind your AI to.
-     * @param {GameInstance} game - This game instance.
+     * @param {IGame} game - This game instance.
      */
-    public frame(game: AbstractGame): void {
-    }
+    frame(game: IGame): void;
 
     /**
      * Read output data from current frame of the game.
@@ -80,10 +107,7 @@ export abstract class AbstractGame
      * @param {any} [val=undefined] - Default returned value if output is undefined.
      * @return {any} Output value for the current frame.
      */
-    public output(key: string, val?: any): any
-    {
-        return undefined;
-    }
+    output(key: string, val?: any): any;
 
     /**
      * Write input data to current frame of the game.
@@ -92,25 +116,7 @@ export abstract class AbstractGame
      * @param {string} [key] - Name of input to write.
      * @param {any} [val] - New value for this input.
      */
-    public input(key: string, val: any): void
-    {}
-}
-
-/**
- * Interface for the game SDK itself.
- */
-export interface IMoroboxAIGameSDK {
-    // SDK version
-    readonly version: string;
-
-    // File server for game files
-    readonly fileServer: IFileServer;
-
-    /**
-     * Register a callback to be notified when the SDK is ready.
-     * @param {Function} callback Callback
-     */
-    ready(callback: () => void): void;
+    input(key: string, val: any): void;
 }
 
 /**
@@ -119,6 +125,6 @@ export interface IMoroboxAIGameSDK {
 export interface BootOptions {
     // root HTML element attributed to game
     root: HTMLElement,
-    // SDK instance
-    sdk: IMoroboxAIGameSDK
+    // Server for game files
+    gameServer: IGameServer
 }
