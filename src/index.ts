@@ -126,5 +126,9 @@ export interface BootOptions {
     // root HTML element attributed to game
     root: HTMLElement,
     // Server for game files
-    gameServer: IGameServer
+    gameServer: IGameServer,
+    // Send game state to AI
+    sendState: (state: any) => void
+    // Receive input state from AI
+    input: () => any
 }
