@@ -120,15 +120,27 @@ export interface IGame
 }
 
 /**
- * Options passed to the game boot function.
+ * Player embedding the game on desktop or web.
  */
-export interface BootOptions {
+export interface IPlayer {
     // root HTML element attributed to game
     root: HTMLElement,
     // Server for game files
     gameServer: IGameServer,
-    // Send game state to AI
-    sendState: (state: any) => void
-    // Receive input state from AI
-    input: () => any
+    // Called when the game is loaded and ready
+    onReady?: () => void,
+    // Notify the game is loaded and ready
+    ready: () => void,
+    /**
+     * Send game state to all or a single controller.
+     * @param {any} state - Game state
+     * @param {number} controllerId - Controller id
+     */
+    sendState: (state: any, controllerId?: number) => void
+    /**
+     * Receive input from all or a single controller.
+     * @param {number} controllerId - Controller id
+     * @returns {any} Input state
+     */
+    input: (controllerId?: number) => {[controllerId: number]: any} | any
 }
