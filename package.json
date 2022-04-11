@@ -2,8 +2,10 @@
   "name": "moroboxai-game-sdk",
   "version": "0.1.0-alpha.7",
   "description": "MoroboxAI SDK for building games",
-  "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "type": "module",
+  "main": "./lib/index.js",
+  "exports": "./lib/index.js",
+  "types": "./lib/index.d.ts",
   "scripts": {
     "build": "webpack"
   },

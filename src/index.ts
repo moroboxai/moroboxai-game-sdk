@@ -1,3 +1,6 @@
+// SDK version
+export const VERSION = "0.1.0-alpha.7";
+
 // Data in game header
 export interface GameHeader {
     // Unique id for the game
