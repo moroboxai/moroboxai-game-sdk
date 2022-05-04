@@ -100,6 +100,9 @@ export interface IController
  */
 export interface IGame
 {
+    // Current game speed multiplier
+    speed: number;
+
     /**
      * Get a short help message describing the game, how it works, and
      * what inputs/outputs are expected.
