@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.9";
+export const VERSION = "0.1.0-alpha.10";
 
 // Data in game header
 export interface GameHeader {
@@ -123,6 +123,11 @@ export interface IGame
      * Stop execution of the game.
      */
     stop(): void;
+
+    /**
+     * Called when the player has been resized.
+     */
+    resize(): void;
 }
 
 /**
@@ -135,8 +140,14 @@ export interface IPlayer {
     // Server for accessing game files
     gameServer: IGameServer;
 
+    // Get or set the player's width
+    width: number;
+
+    // Get or set the player's height
+    height: number;
+
     /**
-     * Allow the game to resize the root HTML element to desired size.
+     * Allow the game to resize the player to desired size.
      * @param {number} width - New width
      * @param {number} height - New height
      */

@@ -104,15 +104,19 @@ export class Game extends MoroboxAIGameSDK.AbstractGame
     }
 
     public play(): void {
-        console.log('play');
+        
     }
 
     public pause(): void {
-        console.log('pause');
+
     }
 
     public stop(): void {
-        console.log('stop');
+
+    }
+
+    public resize(): void {
+
     }
 }
 
