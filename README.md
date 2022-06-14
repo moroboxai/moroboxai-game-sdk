@@ -56,7 +56,7 @@ npm install typescript moroboxai-game-sdk --save-dev
 
 _Note: moroboxai-game-sdk is only required in **development** so that typescript knows about
 the types. At **runtime**, the SDK will be initialized and provided directly by MoroboxAI, so there
-is no need to include it in our game._
+is no need to include it in your game._
 
 Add the following configuration to **package.json**:
 
