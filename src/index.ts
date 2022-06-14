@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.11";
+export const VERSION = "0.1.0-alpha.12";
 
 // Data in game header
 export interface GameHeader {
@@ -103,9 +103,6 @@ export interface IController
  */
 export interface IGame
 {
-    // Current game speed multiplier
-    speed: number;
-
     /**
      * Get a short help message describing the game, how it works, and
      * what inputs/outputs are expected.
@@ -151,6 +148,9 @@ export interface IPlayer {
 
     // If the game can resize the player
     isResizable: boolean;
+
+    // Selected speed multiplier
+    speed: number;
 
     /**
      * Allow the game to resize the player to desired size.
