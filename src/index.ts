@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.10";
+export const VERSION = "0.1.0-alpha.11";
 
 // Data in game header
 export interface GameHeader {
@@ -16,6 +16,9 @@ export interface GameHeader {
     preview: string;
     splashart: string;
     boot: string;
+    // Size of the game
+    width?: number;
+    height?: number;
 }
 
 /**
@@ -145,6 +148,15 @@ export interface IPlayer {
 
     // Get or set the player's height
     height: number;
+
+    // If the game can resize the player
+    isResizable: boolean;
+
+    /**
+     * Allow the game to resize the player to desired size.
+     * @param {any} options - New size
+     */
+    resize(options: {width?: number, height?: number}): void;
 
     /**
      * Allow the game to resize the player to desired size.
