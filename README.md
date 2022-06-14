@@ -96,39 +96,50 @@ Add a new **src/game.ts** file to the project:
 ```js
 import * as MoroboxAIGameSDK from 'moroboxai-game-sdk';
 
-export class Game extends MoroboxAIGameSDK.AbstractGame
-{
+class Game implements MoroboxAIGameSDK.IGame {
+    private _player: MoroboxAIGameSDK.IPlayer;
+    
     constructor(player: MoroboxAIGameSDK.IPlayer) {
-        super();
+        this._player = player;
+
+        // start the process of loading assets asynchronously
+        setTimeout(() => {
+            console.log("assets loaded");
+
+            // notify the game is ready to play
+            player.ready();
+        }, 1000);
     }
 
-    public play(): void {
-        
+    help(): string {
+        return "";
     }
 
-    public pause(): void {
+    play(): void {
+        console.log("play");
+    }
+
+    pause(): void {
 
     }
 
-    public stop(): void {
+    stop(): void {
 
     }
 
-    public resize(): void {
+    resize(): void {
 
-    }
+    }    
 }
 
-// entrypoint used by MoroboxAI to boot our game
-export function boot(player: MoroboxAIGameSDK.IPlayer) {
-    const game = new Game(player);
+export function boot(player: MoroboxAIGameSDK.IPlayer): MoroboxAIGameSDK.IGame {
+    return new Game(player);
 }
 ```
 
-**MoroboxAIGameSDK.AbstractGame** is an abstract class from the SDK providing multiple
-functions required by MoroboxAI to run and manage the game lifecycle. The **boot**
-function is required and must be exported at the **end of the script**. This will
-be the entrypoint used by MoroboxAI to boot our game.
+**IPlayer** is a the interface your game must implement to be compatible
+with MoroboxAI. The **boot** function is required and must be exported at the **end of the script**.
+This will be the entrypoint used by MoroboxAI to boot your game.
 
 ## Build
 
