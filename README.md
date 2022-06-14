@@ -78,7 +78,7 @@ Create a **tsconfig.json** file containing:
             "es2019.object",
             "dom"
         ],
-        "outDir": "./lib",
+        "outDir": "./",
         "strict": true
     },
     "files": ["src/game.ts"],
@@ -147,7 +147,42 @@ This will be the entrypoint used by MoroboxAI to boot your game.
 npm run build
 ```
 
-This will generate a **lib/game.js** file containing your game exported as a **CommonJS** module.
+This will generate a **game.js** file containing your game exported as a **CommonJS** module:
+
+```js
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.boot = void 0;
+class Game {
+    constructor(player) {
+        this._player = player;
+        setTimeout(() => {
+            console.log("assets loaded");
+            // notify the game is loaded and ready
+            player.ready();
+        }, 1000);
+    }
+    help() {
+        return "";
+    }
+    play() {
+        console.log("play");
+    }
+    pause() {
+    }
+    stop() {
+    }
+    resize() {
+    }
+}
+function boot(player) {
+    return new Game(player);
+}
+exports.boot = boot;
+```
+
+You can see that **moroboxai-game-sdk** has been stripped out and that the **boot** function
+is correctly exported at the end.
 
 ## Package & distribute
 
