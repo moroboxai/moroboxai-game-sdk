@@ -186,10 +186,7 @@ is correctly exported at the end.
 
 ## Package & distribute
 
-MoroboxAI require your game to be packaged in a **.zip** file along with an **header.json** file containing
-some metadata about your game.
-
-Create a **header.json** file next to **game.js**:
+For MoroboxAI to know how to run your game, you must add an **header.json** file containing some metadata:
 
 ```js
 {
@@ -202,11 +199,9 @@ Create a **header.json** file next to **game.js**:
 }
 ```
 
-Create a **.zip** file with both **header.json** and **game.js** files.
-You can now copy this **.zip** to MoroboxAI **games** directory.
-When launching MoroboxAI, you should now see your game in the main menu:
-
-![alt text](../media/readme_package_moroboxai.png?raw=true)
+Now you have two possibilities for distributing your game:
+  * Upload **header.json** and **game.js** on a server and indicate the URL to MoroboxAI
+  * Upload a ZIP containing **header.json** and **game.js** on a server and indicate the URL to MoroboxAI
 
 ## Test
 
