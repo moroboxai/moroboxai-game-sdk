@@ -208,6 +208,46 @@ When launching MoroboxAI, you should now see your game in the main menu:
 
 ![alt text](../media/readme_package_moroboxai.png?raw=true)
 
+## Test
+
+There are multiple ways of testing your game in MoroboxAI, but the simplest one is probably to start a local HTTP server to locally run MoroboxAI.
+
+First install [moroboxai-player-web](https://github.com/moroboxai/moroboxai-player-web) and **http-server**:
+
+```bash
+npm install moroboxai-player-web http-server --save-dev
+```
+
+Then create an `index.html` file:
+
+```html
+<html>
+ <div id="player"></div> 
+  
+ <script type="text/javascript" src="node_modules/moroboxai-player-web/lib/umd/moroboxai-player-web.js"></script>
+ <script type="text/javascript">
+  // Initialize the player on our div
+  const player = MoroboxAIPlayer.init({
+   element: document.getElementById("player"),
+   url: "./",
+   width: "256px",
+   height: "256px"
+  });
+
+  // Will be called when the game is ready
+  player.onReady = () => console.log("game is loaded and ready");
+ </script>
+</html>
+```
+
+Open a command prompt and run:
+
+```bash
+http-server
+```
+
+Now you can access the page on **localhost** and the port opened by **http-server**. You won't see anything as the game is not displaying anything, but you can check the game is correctly loaded in the console. 
+
 ## License
 
 This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
