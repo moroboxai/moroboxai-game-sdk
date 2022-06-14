@@ -164,4 +164,4 @@ When launching MoroboxAI, you should now see your game in the main menu:
 
 ## License
 
-This content is released under the (http://opensource.org/licenses/MIT) MIT License.
+This content is released under the [MIT](http://opensource.org/licenses/MIT) License.
