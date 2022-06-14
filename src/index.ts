@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.12";
+export const VERSION = "0.1.0-alpha.13";
 
 // Data in game header
 export interface GameHeader {
