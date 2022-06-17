@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.13";
+export const VERSION = "0.1.0-alpha.14";
 
 // Data in game header
 export interface GameHeader {
@@ -24,8 +24,7 @@ export interface GameHeader {
 /**
  * Interface for a local server.
  */
-export interface IServer
-{    
+export interface IServer {
     /**
      * Register a callback to be notified when the server is ready.
      * @param {Function} callback - Called when ready
@@ -42,8 +41,7 @@ export interface IServer
 /**
  * Interface for a local file server.
  */
-export interface IFileServer extends IServer
-{
+export interface IFileServer extends IServer {
     /**
      * Get an URL pointing to a resource of this file server.
      * @param {string} path - Path to the resource
@@ -62,8 +60,7 @@ export interface IFileServer extends IServer
 /**
  * Interface for the game server.
  */
-export interface IGameServer extends IFileServer
-{
+export interface IGameServer extends IFileServer {
     /**
      * Fetch and load the game header.
      * @returns Result
@@ -74,8 +71,7 @@ export interface IGameServer extends IFileServer
 /**
  * Interface for player or AI controllers.
  */
-export interface IController
-{
+export interface IController {
     // Unique controller id
     id: number;
 
@@ -101,8 +97,7 @@ export interface IController
 /**
  * Interface for your game.
  */
-export interface IGame
-{
+export interface IGame {
     /**
      * Get a short help message describing the game, how it works, and
      * what inputs/outputs are expected.
@@ -152,11 +147,14 @@ export interface IPlayer {
     // Selected speed multiplier
     speed: number;
 
+    // Game header
+    header: GameHeader;
+
     /**
      * Allow the game to resize the player to desired size.
      * @param {any} options - New size
      */
-    resize(options: {width?: number, height?: number}): void;
+    resize(options: { width?: number, height?: number }): void;
 
     /**
      * Allow the game to resize the player to desired size.
@@ -183,4 +181,11 @@ export interface IPlayer {
      * @returns {IController} Associated controller
      */
     controller(controllerId: number): IController | undefined;
+}
+
+/**
+ * Signature of the boot function your game must export.
+ */
+export interface IBoot {
+    (player: IPlayer): IGame;
 }
