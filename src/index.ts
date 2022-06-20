@@ -1,21 +1,21 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.14";
+export const VERSION = "0.1.0-alpha.15";
 
 // Data in game header
 export interface GameHeader {
     // Unique id for the game
-    id: string;
+    id?: string;
     // Version of the game
-    version: string;
+    version?: string;
     // Displayed title
-    title: string;
+    title?: string;
     // Displayed description
-    description: string;
+    description?: string;
     // Small icon
-    icon: string;
-    preview: string;
-    splashart: string;
-    boot: string;
+    icon?: string;
+    preview?: string;
+    splashart?: string;
+    boot?: string;
     // Size of the game
     width?: number;
     height?: number;
