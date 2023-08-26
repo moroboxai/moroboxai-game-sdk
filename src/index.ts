@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.18";
+export const VERSION = "0.1.0-alpha.19";
 
 // Data in game header
 export interface GameHeader {
@@ -123,6 +123,16 @@ export interface IGame {
      * This state is used to predict the next input.
      */
     getStateForAgent(): object;
+
+    /**
+     * Hook to tick the player from the game.
+     * Oftentimes, games will be written using libraries that already provide
+     * a way to tick the game at a target FPS.
+     * To avoid having two running loops, the player will set this variable,
+     * and the game has the responsibility to call it at each tick.
+     * @param {number} delta - elapsed time
+     */
+    ticker: (delta: number) => void;
 
     /**
      * Tick the game with inputs from the agent.
