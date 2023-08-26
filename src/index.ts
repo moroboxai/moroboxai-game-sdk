@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.21";
+export const VERSION = "0.1.0-alpha.22";
 
 // Data in game header
 export interface GameHeader {
@@ -93,16 +93,16 @@ export interface IController {
 
     /**
      * Load an agent to this controller.
-     * @param {string} type - type of code
      * @param {string} code - code of the agent
      */
-    loadAgent(type: string, code: string): Promise<void>;
-
-    /**
-     * Load an agent to this controller.
-     * @param {string} code - code of the agent
-     */
-    loadAgent(code: string): Promise<void>;
+    loadAgent(options: {
+        // Type of code
+        type?: string;
+        // Load from code snippet
+        code?: string;
+        // Load from URL
+        url?: string;
+    }): Promise<void>;
 
     /**
      * Unload the agent from this controller.
@@ -219,7 +219,7 @@ export interface IPlayer {
      * Get a controller.
      * @param {number} controllerId - id of the controller
      */
-    getController(controllerId: number): IController;
+    getController(controllerId: number): IController | undefined;
 }
 
 /**
