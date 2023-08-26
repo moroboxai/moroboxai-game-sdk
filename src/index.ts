@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.23";
+export const VERSION = "0.1.0-alpha.24";
 
 // Data in game header
 export interface GameHeader {
@@ -164,7 +164,7 @@ export interface IGame {
      * and the game has the responsibility to call it at each tick.
      * @param {number} delta - elapsed time
      */
-    ticker: (delta: number) => void;
+    ticker?: (delta: number) => void;
 
     /**
      * Tick the game with inputs from the agents.
