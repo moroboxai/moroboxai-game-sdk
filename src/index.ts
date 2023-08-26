@@ -147,8 +147,11 @@ export interface IPlayer {
     // Selected speed multiplier
     speed: number;
 
+    // URL to game header
+    url?: string;
+
     // Game header
-    header: GameHeader;
+    header?: GameHeader;
 
     /**
      * Allow the game to resize the player to desired size.
