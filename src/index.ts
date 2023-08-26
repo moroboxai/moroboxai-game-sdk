@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.22";
+export const VERSION = "0.1.0-alpha.23";
 
 // Data in game header
 export interface GameHeader {
@@ -214,6 +214,11 @@ export interface IPlayer {
      * @param {number} height - New height
      */
     resize(width: number, height: number): void;
+
+    /**
+     * Must be called by the game when it is loaded and ready.
+     */
+    ready(): void;
 
     /**
      * Get a controller.
