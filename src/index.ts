@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.19";
+export const VERSION = "0.1.0-alpha.20";
 
 // Data in game header
 export interface GameHeader {
@@ -72,10 +72,10 @@ export interface IGameServer extends IFileServer {
  * Interface for the possible inputs in games.
  */
 export interface IInputs {
-    left: boolean;
-    right: boolean;
-    up: boolean;
-    down: boolean;
+    left?: boolean;
+    right?: boolean;
+    up?: boolean;
+    down?: boolean;
 }
 
 /**
@@ -135,11 +135,11 @@ export interface IGame {
     ticker: (delta: number) => void;
 
     /**
-     * Tick the game with inputs from the agent.
-     * @param {IInputs} inputs - inputs from agent
+     * Tick the game with inputs from the agents.
+     * @param {IInputs} inputs - inputs from agents
      * @param {number} delta - elapsed time
      */
-    tick(inputs: IInputs, delta: number): void;
+    tick(inputs: Array<IInputs>, delta: number): void;
 }
 
 /**
