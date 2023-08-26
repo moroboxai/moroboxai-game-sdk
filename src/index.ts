@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.17";
+export const VERSION = "0.1.0-alpha.18";
 
 // Data in game header
 export interface GameHeader {
@@ -69,29 +69,13 @@ export interface IGameServer extends IFileServer {
 }
 
 /**
- * Interface for player or AI controllers.
+ * Interface for the possible inputs in games.
  */
-export interface IController {
-    // Unique controller id
-    id: number;
-
-    // If there is a player or AI bound to this controller
-    isBound: boolean;
-
-    // Label to display
-    label: string;
-
-    /**
-     * Send the game state to this controller.
-     * @param {any} state - Game state
-     */
-    sendState(state: any): void
-
-    /**
-     * Get controller inputs.
-     * @returns {any} Inputs
-     */
-    inputs(): any;
+export interface IInputs {
+    left: boolean;
+    right: boolean;
+    up: boolean;
+    down: boolean;
 }
 
 /**
@@ -123,6 +107,29 @@ export interface IGame {
      * Called when the player has been resized.
      */
     resize(): void;
+
+    /**
+     * Save the state of the game.
+     */
+    saveState(): object;
+
+    /**
+     * Load the state of the game.
+     */
+    loadState(state: object): void;
+
+    /**
+     * Get the state of the game for the agent.
+     * This state is used to predict the next input.
+     */
+    getStateForAgent(): object;
+
+    /**
+     * Tick the game with inputs from the agent.
+     * @param {IInputs} inputs - inputs from agent
+     * @param {number} delta - elapsed time
+     */
+    tick(inputs: IInputs, delta: number): void;
 }
 
 /**
@@ -165,25 +172,6 @@ export interface IPlayer {
      * @param {number} height - New height
      */
     resize(width: number, height: number): void;
-
-    /**
-     * Must be called by the game when it is loaded and ready.
-     */
-    ready(): void;
-
-    /**
-     * Send the game state to all or a single controller.
-     * @param {any} state - Game state
-     * @param {number} controllerId - Controller id
-     */
-    sendState(state: any, controllerId?: number): void
-
-    /**
-     * Get a controller by id.
-     * @param {number} controllerId - Controller id
-     * @returns {IController} Associated controller
-     */
-    controller(controllerId: number): IController | undefined;
 }
 
 /**
