@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.20";
+export const VERSION = "0.1.0-alpha.21";
 
 // Data in game header
 export interface GameHeader {
@@ -76,6 +76,38 @@ export interface IInputs {
     right?: boolean;
     up?: boolean;
     down?: boolean;
+}
+
+/**
+ * Interface for player or AI controllers.
+ */
+export interface IController {
+    // Unique controller id
+    id: number;
+
+    // If there is a player or AI bound to this controller
+    isBound: boolean;
+
+    // Label to display
+    label: string;
+
+    /**
+     * Load an agent to this controller.
+     * @param {string} type - type of code
+     * @param {string} code - code of the agent
+     */
+    loadAgent(type: string, code: string): Promise<void>;
+
+    /**
+     * Load an agent to this controller.
+     * @param {string} code - code of the agent
+     */
+    loadAgent(code: string): Promise<void>;
+
+    /**
+     * Unload the agent from this controller.
+     */
+    unloadAgent(): void;
 }
 
 /**
@@ -182,6 +214,12 @@ export interface IPlayer {
      * @param {number} height - New height
      */
     resize(width: number, height: number): void;
+
+    /**
+     * Get a controller.
+     * @param {number} controllerId - id of the controller
+     */
+    getController(controllerId: number): IController;
 }
 
 /**
