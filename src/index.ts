@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.15";
+export const VERSION = "0.1.0-alpha.16";
 
 // Data in game header
 export interface GameHeader {
@@ -141,8 +141,8 @@ export interface IPlayer {
     // Get or set the player's height
     height: number;
 
-    // If the game can resize the player
-    isResizable: boolean;
+    // If the player is resizable
+    resizable: boolean;
 
     // Selected speed multiplier
     speed: number;
