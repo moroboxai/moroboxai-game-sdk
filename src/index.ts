@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.24";
+export const VERSION = "0.1.0-alpha.25";
 
 // Data in game header
 export interface GameHeader {
@@ -155,6 +155,11 @@ export interface IGame {
      * This state is used to predict the next input.
      */
     getStateForAgent(): object;
+
+    /**
+     * Reset the state of the game, starting a new game.
+     */
+    reset(): void;
 
     /**
      * Hook to tick the player from the game.
