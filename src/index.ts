@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.26";
+export const VERSION = "0.1.0-alpha.27";
 
 // Data in game header
 export interface GameHeader {
@@ -179,6 +179,17 @@ export interface IGame {
     getStateForAgent(): object;
 
     /**
+     * Hook registered by the player.
+     * 
+     * Oftentimes, games will be written using libraries that already provide
+     * a way to tick the game at a target FPS.
+     * 
+     * To avoid having two running loops, the player expect the game to
+     * call this function on every tick.
+     */
+    ticker?: (delta: number) => void;
+
+    /**
      * Tick the game with inputs from the agents.
      * @param {IInputs} inputs - inputs from agents
      * @param {number} delta - elapsed time
@@ -247,12 +258,6 @@ export interface IPlayer {
 
     /**
      * Tick the player.
-     * 
-     * Oftentimes, games will be written using libraries that already provide
-     * a way to tick the game at a target FPS.
-     * 
-     * To avoid having two running loops, the player expect the game to
-     * call this function on every tick.
      * @param {number} delta - elapsed time
      */
     tick(delta: number): void;
