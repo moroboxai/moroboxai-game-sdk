@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.25";
+export const VERSION = "0.1.0-alpha.26";
 
 // Data in game header
 export interface GameHeader {
@@ -112,11 +112,19 @@ export interface IController {
 
 /**
  * Interface for your game.
+ * 
+ * This is the functions your game must implement to be fully compatible
+ * with MoroboxAI.
+ * 
+ * Some packages such as piximoroxel8ai provide most of this implementation,
+ * so that you can focus on writing the logic of your game.
  */
 export interface IGame {
     /**
-     * Get a short help message describing the game, how it works, and
-     * what inputs/outputs are expected.
+     * Return an help message about the game.
+     * 
+     * This help message should describe what contains the state
+     * passed to agents, so that users can know how to code one.
      */
     help(): string;
 
@@ -136,40 +144,39 @@ export interface IGame {
     stop(): void;
 
     /**
-     * Called when the player has been resized.
+     * Resize the game.
+     * 
+     * This function is called when the player is resized, and the game
+     * needs to adapt itself to the new resolution.
      */
     resize(): void;
 
     /**
      * Save the state of the game.
+     * 
+     * The state returned should be complete enough to come back to it
+     * later with the loadState function below.
      */
     saveState(): object;
 
     /**
      * Load the state of the game.
+     * 
+     * In case of the state being empty, the game must reset itself to
+     * its initial state.
      */
     loadState(state: object): void;
 
     /**
      * Get the state of the game for the agent.
-     * This state is used to predict the next input.
+     * 
+     * Unlike saveState, the state returned here can be whatever may
+     * be required for someone to write an agent for your game.
+     * 
+     * It can be the position of the player, of the obstacles, or the
+     * enemies, the current score, ...
      */
     getStateForAgent(): object;
-
-    /**
-     * Reset the state of the game, starting a new game.
-     */
-    reset(): void;
-
-    /**
-     * Hook to tick the player from the game.
-     * Oftentimes, games will be written using libraries that already provide
-     * a way to tick the game at a target FPS.
-     * To avoid having two running loops, the player will set this variable,
-     * and the game has the responsibility to call it at each tick.
-     * @param {number} delta - elapsed time
-     */
-    ticker?: (delta: number) => void;
 
     /**
      * Tick the game with inputs from the agents.
@@ -180,7 +187,10 @@ export interface IGame {
 }
 
 /**
- * Player embedding the game on desktop or web.
+ * Interface of the player embedding the game.
+ * 
+ * This interface is known, and can be used by the game, to interact
+ * with the player.
  */
 export interface IPlayer {
     // Root HTML element attributed to the game
@@ -221,9 +231,31 @@ export interface IPlayer {
     resize(width: number, height: number): void;
 
     /**
-     * Must be called by the game when it is loaded and ready.
+     * Notify the game is loaded and ready.
      */
     ready(): void;
+
+    /**
+     * Save the state of the game.
+     */
+    saveState(): object;
+
+    /**
+     * Load the state of the game.
+     */
+    loadState(state: object): void;
+
+    /**
+     * Tick the player.
+     * 
+     * Oftentimes, games will be written using libraries that already provide
+     * a way to tick the game at a target FPS.
+     * 
+     * To avoid having two running loops, the player expect the game to
+     * call this function on every tick.
+     * @param {number} delta - elapsed time
+     */
+    tick(delta: number): void;
 
     /**
      * Get a controller.
