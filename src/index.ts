@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.27";
+export const VERSION = "0.1.0-alpha.28";
 
 // Data in game header
 export interface GameHeader {
@@ -83,31 +83,19 @@ export interface IInputs {
  */
 export interface IController {
     // Unique controller id
-    id: number;
-
-    // If there is a player or AI bound to this controller
-    isBound: boolean;
+    readonly id: number;
 
     // Label to display
-    label: string;
+    readonly label: string;
 
-    /**
-     * Load an agent to this controller.
-     * @param {string} code - code of the agent
-     */
-    loadAgent(options: {
-        // Type of code
-        type?: string;
-        // Load from code snippet
-        code?: string;
-        // Load from URL
-        url?: string;
-    }): Promise<void>;
+    // If there is a player or agent bound to this controller
+    readonly isBound: boolean;
 
-    /**
-     * Unload the agent from this controller.
-     */
-    unloadAgent(): void;
+    // If there is no agent bound to this controller
+    readonly isPlayer: boolean;
+
+    // If there is an agent bound to this controller
+    readonly isAgent: boolean;
 }
 
 /**
@@ -217,16 +205,10 @@ export interface IPlayer {
     height: number;
 
     // If the player is resizable
-    resizable: boolean;
+    readonly resizable: boolean;
 
     // Selected speed multiplier
-    speed: number;
-
-    // URL to game header
-    url?: string;
-
-    // Game header
-    header?: GameHeader;
+    readonly speed: number;
 
     /**
      * Allow the game to resize the player to desired size.
@@ -242,27 +224,6 @@ export interface IPlayer {
     resize(width: number, height: number): void;
 
     /**
-     * Notify the game is loaded and ready.
-     */
-    ready(): void;
-
-    /**
-     * Save the state of the game.
-     */
-    saveState(): object;
-
-    /**
-     * Load the state of the game.
-     */
-    loadState(state: object): void;
-
-    /**
-     * Tick the player.
-     * @param {number} delta - elapsed time
-     */
-    tick(delta: number): void;
-
-    /**
      * Get a controller.
      * @param {number} controllerId - id of the controller
      */
@@ -273,5 +234,5 @@ export interface IPlayer {
  * Signature of the boot function your game must export.
  */
 export interface IBoot {
-    (player: IPlayer): IGame;
+    (player: IPlayer): Promise<IGame>;
 }
