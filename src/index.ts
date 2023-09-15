@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.28";
+export const VERSION = "0.1.0-alpha.29";
 
 // Data in game header
 export interface GameHeader {
@@ -209,6 +209,9 @@ export interface IPlayer {
 
     // Selected speed multiplier
     readonly speed: number;
+
+    // Game header
+    readonly header?: GameHeader;
 
     /**
      * Allow the game to resize the player to desired size.
