@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.30";
+export const VERSION = "0.1.0-alpha.31";
 
 // Accepted formats
 export type Format = "1:1" | "16:9";
@@ -186,8 +186,9 @@ export interface IGame {
      * Tick the game with inputs from the agents.
      * @param {IInputs} inputs - inputs from agents
      * @param {number} delta - elapsed time
+     * @param {boolean} render - if the game must render graphics
      */
-    tick(inputs: Array<IInputs>, delta: number): void;
+    tick(inputs: Array<IInputs>, delta: number, render: boolean): void;
 }
 
 /**
