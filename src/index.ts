@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.33";
+export const VERSION = "0.1.0-alpha.34";
 
 // Data in game header
 export interface GameHeader {
@@ -16,11 +16,6 @@ export interface GameHeader {
     preview?: string;
     splashart?: string;
     boot?: string;
-    // Native resolution of the game
-    width?: number;
-    height?: number;
-    // Desired aspect ratio based on native resolution
-    aspectRatio?: string;
 }
 
 /**
