@@ -1,5 +1,8 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.29";
+export const VERSION = "0.1.0-alpha.30";
+
+// Accepted formats
+export type Format = "1:1" | "16:9";
 
 // Data in game header
 export interface GameHeader {
@@ -16,6 +19,8 @@ export interface GameHeader {
     preview?: string;
     splashart?: string;
     boot?: string;
+    // Desired format
+    format?: Format;
     // Size of the game
     width?: number;
     height?: number;
