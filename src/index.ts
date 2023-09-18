@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.31";
+export const VERSION = "0.1.0-alpha.32";
 
 // Accepted formats
 export type Format = "1:1" | "16:9";
@@ -218,6 +218,12 @@ export interface IPlayer {
 
     // Game header
     readonly header?: GameHeader;
+
+    // Current player frame
+    readonly frame: number;
+
+    // Current player time
+    readonly time: number;
 
     /**
      * Allow the game to resize the player to desired size.
