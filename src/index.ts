@@ -1,5 +1,5 @@
 // SDK version
-export const VERSION = "0.1.0-alpha.35";
+export const VERSION = "__VERSION__";
 
 // Data in game header
 export interface GameHeader {
@@ -15,7 +15,10 @@ export interface GameHeader {
     icon?: string;
     preview?: string;
     splashart?: string;
-    boot?: string;
+    /**
+     * File or function to boot the game.
+     */
+    boot?: string | IBoot;
 }
 
 /**
@@ -58,11 +61,6 @@ export interface IFileServer extends IServer {
  * Interface for the game server.
  */
 export interface IGameServer extends IFileServer {
-    /**
-     * Fetch and load the game header.
-     * @returns Result
-     */
-    gameHeader(): Promise<GameHeader>;
 }
 
 /**
