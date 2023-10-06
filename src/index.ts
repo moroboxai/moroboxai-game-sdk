@@ -18,7 +18,7 @@ export interface GameHeader {
     /**
      * File or function to boot the game.
      */
-    boot?: string | IBoot;
+    boot?: BootLike;
 }
 
 /**
@@ -60,13 +60,12 @@ export interface IFileServer extends IServer {
 /**
  * Interface for the game server.
  */
-export interface IGameServer extends IFileServer {
-}
+export interface IGameServer extends IFileServer {}
 
 /**
  * Interface for the possible inputs in games.
  */
-export interface IInputs {
+export interface Inputs {
     left?: boolean;
     right?: boolean;
     up?: boolean;
@@ -95,17 +94,17 @@ export interface IController {
 
 /**
  * Interface for your game.
- * 
+ *
  * This is the functions your game must implement to be fully compatible
  * with MoroboxAI.
- * 
+ *
  * Some packages such as piximoroxel8ai provide most of this implementation,
  * so that you can focus on writing the logic of your game.
  */
 export interface IGame {
     /**
      * Width of the game.
-     * 
+     *
      * This is the native width, not the width the game is
      * rendered at.
      */
@@ -113,7 +112,7 @@ export interface IGame {
 
     /**
      * Height of the game.
-     * 
+     *
      * This is the native height, not the height the game is
      * rendered at.
      */
@@ -121,11 +120,11 @@ export interface IGame {
 
     /**
      * Scale of the game.
-     * 
+     *
      * For a game with a native resolution of 128x128 pixels,
      * supposed to render at 256x256 pixels on the screen, the
      * native scale would be 128/256 = 0.5.
-     * 
+     *
      * This setting is used to keep a consistent scaling for
      * all games written for MoroboxAI.
      */
@@ -133,7 +132,7 @@ export interface IGame {
 
     /**
      * Return an help message about the game.
-     * 
+     *
      * This help message should describe what contains the state
      * passed to agents, so that users can know how to code one.
      */
@@ -156,7 +155,7 @@ export interface IGame {
 
     /**
      * Resize the game.
-     * 
+     *
      * This function is called when the player is resized, and the game
      * needs to adapt itself to the new resolution.
      */
@@ -164,7 +163,7 @@ export interface IGame {
 
     /**
      * Save the state of the game.
-     * 
+     *
      * The state returned should be complete enough to come back to it
      * later with the loadState function below.
      */
@@ -172,7 +171,7 @@ export interface IGame {
 
     /**
      * Load the state of the game.
-     * 
+     *
      * In case of the state being empty, the game must reset itself to
      * its initial state.
      */
@@ -180,10 +179,10 @@ export interface IGame {
 
     /**
      * Get the state of the game for the agent.
-     * 
+     *
      * Unlike saveState, the state returned here can be whatever may
      * be required for someone to write an agent for your game.
-     * 
+     *
      * It can be the position of the player, of the obstacles, or the
      * enemies, the current score, ...
      */
@@ -191,10 +190,10 @@ export interface IGame {
 
     /**
      * Hook registered by the player.
-     * 
+     *
      * Oftentimes, games will be written using libraries that already provide
      * a way to tick the game at a target FPS.
-     * 
+     *
      * To avoid having two running loops, the player expect the game to
      * call this function on every tick.
      */
@@ -202,16 +201,16 @@ export interface IGame {
 
     /**
      * Tick the game with inputs from the agents.
-     * @param {IInputs} inputs - inputs from agents
+     * @param {Inputs} inputs - inputs from agents
      * @param {number} delta - elapsed time
      * @param {boolean} render - if the game must render graphics
      */
-    tick(inputs: Array<IInputs>, delta: number, render: boolean): void;
+    tick(inputs: Array<Inputs>, delta: number, render: boolean): void;
 }
 
 /**
  * Interface of the player embedding the game.
- * 
+ *
  * This interface is known, and can be used by the game, to interact
  * with the player.
  */
@@ -247,7 +246,7 @@ export interface IPlayer {
      * Allow the game to resize the player to desired size.
      * @param {any} options - New size
      */
-    resize(options: { width?: number, height?: number }): void;
+    resize(options: { width?: number; height?: number }): void;
 
     /**
      * Allow the game to resize the player to desired size.
@@ -264,8 +263,27 @@ export interface IPlayer {
 }
 
 /**
+ * Options passed to the boot function.
+ */
+export interface BootOptions {
+    player: IPlayer;
+}
+
+/**
  * Signature of the boot function your game must export.
  */
-export interface IBoot {
-    (player: IPlayer): Promise<IGame>;
+export interface BootFunction {
+    (options: BootOptions): Promise<IGame>;
 }
+
+/**
+ * Interface for a class containing a boot function.
+ */
+export interface IBootable {
+    boot: BootFunction;
+}
+
+/**
+ * Something that looks like a boot function.
+ */
+export type BootLike = string | BootFunction | IBootable;
