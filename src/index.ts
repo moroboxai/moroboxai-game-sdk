@@ -209,12 +209,12 @@ export interface IGame {
 }
 
 /**
- * Interface of the player embedding the game.
+ * Interface of the VM embedding the game.
  *
  * This interface is known, and can be used by the game, to interact
- * with the player.
+ * with the VM.
  */
-export interface IPlayer {
+export interface IVM {
     // Root HTML element attributed to the game
     root: HTMLElement;
 
@@ -236,20 +236,20 @@ export interface IPlayer {
     // Game header
     readonly header?: GameHeader;
 
-    // Current player frame
+    // Current frame
     readonly frame: number;
 
-    // Current player time
+    // Current time
     readonly time: number;
 
     /**
-     * Allow the game to resize the player to desired size.
+     * Resize the player to desired size.
      * @param {any} options - New size
      */
     resize(options: { width?: number; height?: number }): void;
 
     /**
-     * Allow the game to resize the player to desired size.
+     * Resize the player to desired size.
      * @param {number} width - New width
      * @param {number} height - New height
      */
@@ -266,7 +266,7 @@ export interface IPlayer {
  * Options passed to the boot function.
  */
 export interface BootOptions {
-    player: IPlayer;
+    vm: IVM;
 }
 
 /**
