@@ -73,23 +73,19 @@ export interface Inputs {
 }
 
 /**
- * Interface for player or AI controllers.
+ * State of a controller with inputs.
  */
-export interface IController {
-    // Unique controller id
-    readonly id: number;
-
+export interface Controller {
     // Label to display
     readonly label: string;
-
     // If there is a player or agent bound to this controller
     readonly isBound: boolean;
-
     // If there is no agent bound to this controller
     readonly isPlayer: boolean;
-
     // If there is an agent bound to this controller
     readonly isAgent: boolean;
+    // Inputs for the current frame
+    readonly inputs: Inputs;
 }
 
 /**
@@ -200,12 +196,12 @@ export interface IGame {
     ticker?: (delta: number) => void;
 
     /**
-     * Tick the game with inputs from the agents.
-     * @param {Inputs} inputs - inputs from agents
+     * Tick the game.
+     * @param {Controller} controllers - list of controllers
      * @param {number} delta - elapsed time
      * @param {boolean} render - if the game must render graphics
      */
-    tick(inputs: Array<Inputs>, delta: number, render: boolean): void;
+    tick(controllers: Array<Controller>, delta: number, render: boolean): void;
 }
 
 /**
@@ -254,12 +250,6 @@ export interface IVM {
      * @param {number} height - New height
      */
     resize(width: number, height: number): void;
-
-    /**
-     * Get a controller.
-     * @param {number} controllerId - id of the controller
-     */
-    getController(controllerId: number): IController | undefined;
 }
 
 /**
