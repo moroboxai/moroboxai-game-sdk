@@ -7,14 +7,12 @@ export interface GameHeader {
     id?: string;
     // Version of the game
     version?: string;
+    // Release date
+    date?: Date;
     // Displayed title
     title?: string;
     // Displayed description
     description?: string;
-    // Small icon
-    icon?: string;
-    preview?: string;
-    splashart?: string;
     /**
      * File or function to boot the game.
      */
