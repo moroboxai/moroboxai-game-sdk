@@ -1,31 +1,31 @@
 {
-	"name": "moroboxai-game-sdk",
-	"version": "0.1.0-alpha.36",
-	"description": "MoroboxAI SDK for building games",
-	"author": "moroboxai",
-	"main": "./lib/cjs/index.cjs",
-	"module": "./lib/es/index.js",
-	"unpkg": "./lib/umd/moroboxai-game-sdk.min.js",
-	"jsdelivr": "./lib/umd/moroboxai-game-sdk.min.js",
-	"types": "./lib/index.d.ts",
-	"scripts": {
-		"build": "vite build && tsc --emitDeclarationOnly",
-		"prepublish": "npm run build"
-	},
-	"repository": {
-		"type": "git",
-		"url": "git+https://github.com/moroboxai/moroboxai-game-sdk.git"
-	},
-	"keywords": [],
-	"license": "MIT",
-	"bugs": {
-		"url": "https://github.com/moroboxai/moroboxai-game-sdk/issues"
-	},
-	"homepage": "https://github.com/moroboxai/moroboxai-game-sdk#readme",
-	"devDependencies": {
-		"@types/node": "^20.6.2",
-		"path": "^0.12.7",
-		"typescript": "^5.2.2",
-		"vite": "^4.4.9"
-	}
+    "name": "moroboxai-game-sdk",
+    "version": "0.1.0-alpha.37",
+    "description": "MoroboxAI SDK for building games",
+    "author": "moroboxai",
+    "main": "./lib/cjs/index.cjs",
+    "module": "./lib/es/index.js",
+    "unpkg": "./lib/umd/moroboxai-game-sdk.min.js",
+    "jsdelivr": "./lib/umd/moroboxai-game-sdk.min.js",
+    "types": "./lib/index.d.ts",
+    "scripts": {
+        "build": "vite build && tsc --emitDeclarationOnly",
+        "prepublish": "npm run build"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/moroboxai/moroboxai-game-sdk.git"
+    },
+    "keywords": [],
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/moroboxai/moroboxai-game-sdk/issues"
+    },
+    "homepage": "https://github.com/moroboxai/moroboxai-game-sdk#readme",
+    "devDependencies": {
+        "@types/node": "^20.6.2",
+        "path": "^0.12.7",
+        "typescript": "^5.2.2",
+        "vite": "^4.4.9"
+    }
 }
