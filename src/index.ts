@@ -14,6 +14,37 @@ export interface GameHeader {
     // Displayed description
     description?: string;
     /**
+     * Width of the game in pixel.
+     *
+     * If only the width is specified, the height is computed
+     * according to the aspect ratio.
+     */
+    width?: number;
+    /**
+     * Height of the game in pixel.
+     *
+     * If only the height is specified, the width is computed
+     * according to the aspect ratio.
+     */
+    height?: number;
+    /**
+     * Aspect ratio of the game as w/h.
+     *
+     * This can't be specified if both width and height are set.
+     */
+    aspectRatio?: string;
+    /**
+     * Scale of the game.
+     *
+     * For a game with a native resolution of 128x128 pixels,
+     * supposed to render at 256x256 pixels on the screen, the
+     * native scale would be 128/256 = 0.5.
+     *
+     * This setting is used to keep a consistent scaling for
+     * all games.
+     */
+    scale?: number;
+    /**
      * File or function to boot the game.
      */
     boot?: BootLike;
@@ -96,34 +127,6 @@ export interface Controller {
  * so that you can focus on writing the logic of your game.
  */
 export interface IGame {
-    /**
-     * Width of the game.
-     *
-     * This is the native width, not the width the game is
-     * rendered at.
-     */
-    readonly width: number;
-
-    /**
-     * Height of the game.
-     *
-     * This is the native height, not the height the game is
-     * rendered at.
-     */
-    readonly height: number;
-
-    /**
-     * Scale of the game.
-     *
-     * For a game with a native resolution of 128x128 pixels,
-     * supposed to render at 256x256 pixels on the screen, the
-     * native scale would be 128/256 = 0.5.
-     *
-     * This setting is used to keep a consistent scaling for
-     * all games written for MoroboxAI.
-     */
-    readonly scale?: number;
-
     /**
      * Return an help message about the game.
      *
@@ -235,19 +238,6 @@ export interface IVM {
 
     // Current time
     readonly time: number;
-
-    /**
-     * Resize the player to desired size.
-     * @param {any} options - New size
-     */
-    resize(options: { width?: number; height?: number }): void;
-
-    /**
-     * Resize the player to desired size.
-     * @param {number} width - New width
-     * @param {number} height - New height
-     */
-    resize(width: number, height: number): void;
 }
 
 /**
