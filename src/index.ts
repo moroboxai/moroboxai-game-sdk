@@ -13,6 +13,8 @@ export interface GameHeader {
     title?: string;
     // Displayed description
     description?: string;
+    // URL of the preview image
+    previewUrl?: string;
     /**
      * Width of the game in pixel.
      *
