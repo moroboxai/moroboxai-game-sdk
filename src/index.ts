@@ -119,6 +119,25 @@ export interface Controller {
     readonly inputs: Inputs;
 }
 
+export interface GameSaveState {
+    /**
+     * Indicate if the game is over.
+     *
+     * This should be true both when the agent wins or loses the
+     * game.
+     *
+     * Once the game is in this state, it should still continue to
+     * respond to the tick function, and render, but should ignore
+     * any inputs.
+     *
+     * After a short delay driven by the player, the loadState function
+     * is called with an empty object, to reset the state of the game.
+     */
+    isGameOver: boolean;
+    // Any additional keys
+    [key: string]: any;
+}
+
 /**
  * Interface for your game.
  *
@@ -166,15 +185,15 @@ export interface IGame {
      * The state returned should be complete enough to come back to it
      * later with the loadState function below.
      */
-    saveState(): object;
+    saveState(): GameSaveState;
 
     /**
      * Load the state of the game.
      *
-     * In case of the state being empty, the game must reset itself to
+     * In case of the state being undefined, the game must reset itself to
      * its initial state.
      */
-    loadState(state: object): void;
+    loadState(state?: GameSaveState): void;
 
     /**
      * Get the state of the game for the agent.
