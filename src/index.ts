@@ -223,7 +223,7 @@ export interface IGame {
      * @param {number} delta - elapsed time
      * @param {boolean} render - if the game must render graphics
      */
-    tick(controllers: Array<Controller>, delta: number, render: boolean): void;
+    tick(controllers: Controller[], delta: number, render: boolean): void;
 }
 
 /**
