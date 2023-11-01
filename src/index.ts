@@ -47,6 +47,15 @@ export interface GameHeader {
      */
     scale?: number;
     /**
+     * Number of controllers for the game.
+     *
+     * Each controller can be bound to a different agent, allowing
+     * for multiple agents running in the same game.
+     *
+     * This must be the maximum number supported by the game.
+     */
+    numControllers?: number;
+    /**
      * File or function to boot the game.
      */
     boot?: BootLike;
@@ -73,6 +82,21 @@ export interface IServer {
  * Interface for a local file server.
  */
 export interface IFileServer extends IServer {
+    /**
+     * URL used to create the file server.
+     */
+    readonly url: string;
+
+    /**
+     * URL without the filename if any.
+     */
+    readonly baseUrl: string;
+
+    /**
+     * Filename pointed by the URL if any.
+     */
+    readonly filename?: string;
+
     /**
      * Get an URL pointing to a resource of this file server.
      * @param {string} path - Path to the resource
